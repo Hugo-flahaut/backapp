@@ -2,15 +2,21 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\RoomRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Positive;
 
 /**
  * @ORM\Entity(repositoryClass=RoomRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"room:read"}},
+ *     denormalizationContext={"groups"={"room:write"}}))
  */
 class Room
 {
@@ -18,21 +24,40 @@ class Room
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("room:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"room:read","room:write"})
+     * @Assert\NotBlank(message="Un numéro de chambre est obligatoire !")
+     * @Assert\Positive(message="La valeur doit être positive !")
      */
     private $number;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"room:read","room:write"})
+     * @Assert\NotBlank(message="Un type de chambre est obligatoire !")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le type de chambre doit contenir {{ limit }} caractères mini",
+     *      maxMessage = "Le type de chambre ne doit pas excéder {{ limit }} caractères"
+     * )
      */
     private $type;
 
     /**
      * @ORM\Column(type="float")
+     * 
+     * @Groups({"room:read","room:write"})
+     * @Assert\NotBlank(message="Un prix est obligatoire !")
+     * @Assert\Positive(message="La valeur doit être positive !")
      */
     private $price;
 
