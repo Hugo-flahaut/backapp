@@ -7,4 +7,5 @@
 /public/bundles/
 /var/
 /vendor/
+/git.md
 ###< symfony/framework-bundle ###
