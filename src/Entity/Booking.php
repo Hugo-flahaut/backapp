@@ -2,15 +2,20 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\BookingRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BookingRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
- * @ORM\Entity(repositoryClass=BookingRepository::class)
+ * @ApiResource(
+ *  normalizationContext={"groups"={"booking:read"}},
+ *  denormalizationContext={"groups"={"booking:write"}}
+ * )
+ * @ORM\Entity(repositoryClass=BookingRepository::class) 
  */
 class Booking
 {
@@ -18,47 +23,63 @@ class Booking
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("booking:read")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"booking:read", "booking:write"})
+     * @Assert\NotBlank(message ="ce champs  est obligatoire")
      */
     private $dateStart;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"booking:read", "booking:write"})
+     * @Assert\NotBlank(message ="ce champs  est obligatoire")
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("booking:read")
+     * @Assert\NotBlank(message ="ce champs  est obligatoire")
      */
     private $status;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"booking:read"})
+     * @Assert\NotBlank(message ="ce champs est obligatoire")
      */
     private $totalPrice;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("booking:read")
+     * @Assert\NotBlank(message ="ce champs est obligatoire")
      */
     private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="bookings")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message ="ce champs  est obligatoire")
+     * @Groups({"read"})
      */
     private $user;
 
     /**
      * @ORM\ManyToMany(targetEntity=Room::class, inversedBy="bookings")
+     * @Assert\NotBlank(message ="ce champs  est obligatoire")
      */
     private $rooms;
 
     /**
      * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="bookings")
+     * @Assert\NotBlank(message ="ce champs  est obligatoire")
      */
     private $options;
 
