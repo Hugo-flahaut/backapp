@@ -4,17 +4,32 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BookingRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
  *  normalizationContext={"groups"={"booking:read"}},
- *  denormalizationContext={"groups"={"booking:write"}}
+ *  denormalizationContext={"groups"={"booking:write"}},
+ *  attributes={
+ *   "order"={"createdAt":"DESC"}
+ *  },
+ * itemOperations={
+ *  "get" = { "security" = "is_granted('show', object)" ,"security_message"="Sorry,you are not the adding of this booking. "},
+ *  "delete" = { "security" = "is_granted('delete', object)","security_message"="Sorry,you are not the adding of this booking. "},
+ *  "put" = { "security" = "is_granted('edit', object)",
+ *             "security_message"="Sorry,you are not the adding of this booking so you can not editing",
+ *             "denormalization_context"={"groups"={"update:booking"}}
+ *  }
+*  }
  * )
+ * @ApiFilter(SearchFilter::class,properties={"user":"exact"})
  * @ORM\Entity(repositoryClass=BookingRepository::class) 
  */
 class Booking
@@ -39,47 +54,47 @@ class Booking
      * @ORM\Column(type="date")
      * @Groups({"booking:read", "booking:write"})
      * @Assert\NotBlank(message ="ce champs  est obligatoire")
+     * @Assert\GreaterThan(propertyPath="dateStart", message="la date de fin doit  être supèrieure à la date de début")
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("booking:read")
-     * @Assert\NotBlank(message ="ce champs  est obligatoire")
+     * @Groups({"booking:read"})
      */
     private $status;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"booking:read"})
-     * @Assert\NotBlank(message ="ce champs est obligatoire")
+     * @Groups({"booking:read", "booking:write"})
      */
     private $totalPrice;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups("booking:read")
-     * @Assert\NotBlank(message ="ce champs est obligatoire")
+     * @Groups({"booking:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="bookings")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message ="ce champs  est obligatoire")
-     * @Groups({"read"})
+     * @Groups({"booking:read","booking:write"})
+     * @Assert\NotBlank(message ="ce champs  est obligatoire") 
      */
     private $user;
 
     /**
      * @ORM\ManyToMany(targetEntity=Room::class, inversedBy="bookings")
-     * @Assert\NotBlank(message ="ce champs  est obligatoire")
+     * @Groups({"booking:read", "booking:write"})
+     * @Assert\NotBlank(message ="ce champs est obligatoire")
+     * 
      */
     private $rooms;
 
     /**
      * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="bookings")
-     * @Assert\NotBlank(message ="ce champs  est obligatoire")
+     * @Groups({"booking:read", "booking:write"})
      */
     private $options;
 

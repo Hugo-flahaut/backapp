@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Positive;
 
 /**
- * @ORM\Entity(repositoryClass=OptionRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\OptionRepository")
  * @ORM\Table(name="`option`")
  *  @ApiResource(
  *     normalizationContext={"groups"={"option:read"}},
