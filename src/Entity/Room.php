@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Positive;
 
 /**
- * @ORM\Entity(repositoryClass=RoomRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\RoomRepository")
  * @ApiResource(
  *     normalizationContext={"groups"={"room:read"}},
  *     denormalizationContext={"groups"={"room:write"}}))
@@ -30,7 +30,7 @@ class Room
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",unique=true)
      * 
      * @Groups({"room:read","room:write"})
      * @Assert\NotBlank(message="Un numéro de chambre est obligatoire !")
