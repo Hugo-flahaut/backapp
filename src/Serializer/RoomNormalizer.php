@@ -28,8 +28,8 @@ final class RoomNormalizer implements ContextAwareNormalizerInterface, Normalize
     }
     public function normalize($object, string $format = null, array $context = [])
     {
-        
         $object->setImageUrl($this->storage->resolveUri($object, 'imageFile'));
+        //to add if not take empty value value we add ?? " "
      //   dd($this->storage->resolveUri($object, 'imageFile'));
         $context[self::ALREADY_CALLED] = true;
         return $this->normalizer->normalize($object, $format, $context);

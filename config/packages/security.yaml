@@ -31,5 +31,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/users, roles: ROLE_ADMIN , methods: [GET, PUT, PATCH, DELETE] }
+        - { path: ^/api/options, roles: ROLE_ADMIN , methods: [GET,POST,PUT, PATCH, DELETE] }
+        - { path: ^/api/rooms, roles: ROLE_ADMIN , methods: [GET,POST,PUT, PATCH, DELETE] }
+        - { path: ^/api/bookings, roles: IS_AUTHENTICATED_FULLY , methods: [GET, POST, PUT, PATCH, DELETE] }
+

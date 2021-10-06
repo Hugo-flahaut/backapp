@@ -24,14 +24,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  normalizationContext = {"groups"={"room:read"}},
  *  denormalizationContext = {"groups"={"room:write"}},
  *  collectionOperations={
- *      "get",   
+ *      "get",
  *      "postwithimage"={
  *          "method" = "post",
  *           "path" ="/rooms/with/image",
  *           "controller" =RoomWithImageController::class,
  *           "deserialize"= false,
- *   *               "openapi_context" = {
-  *                    "requestBody" = {
+ *                  "openapi_context" = {
+ *                    "requestBody" = {
  *                          "content" = {
  *                              "multipart/form-data" = {
  *                                  "schema" = {
@@ -42,14 +42,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                                              "format" = "binary",
  *                                           },
  *                                          "number" = {
- *                                              "type" = "integer",  
+ *                                              "type" = "integer",
+ *                                              
  *                                           },
  *                                           "type" = {
  *                                              "type" = "string",
  *                                              
+ *                                              
  *                                           },
- *  *                                           "price" = {
+ *                                            "price" = {
  *                                              "type" = "integer",
+ *                                             
  *                                              
  *                                           },
  * 
@@ -68,10 +71,11 @@ use Symfony\Component\Validator\Constraints as Assert;
   *   "put",
   *   "image" ={
   *             "method" = "post",
-  *              "path" ="/rooms/{id}/image",
+  *              "path" ="/rooms/{id}/add/or/edit/image",
   *              "controller" =RoomEditImageController::class,
   *               "deserialize"= false,
   *               "openapi_context" = {
+  *                    "summary" = "Add or edit existe image in Room ressource",
   *                    "requestBody" = {
  *                          "content" = {
  *                              "multipart/form-data" = {
@@ -88,7 +92,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                          },
  *                      },
  *                 },
-  *   },            
+  *   }, 
   * }
   *
   *)
