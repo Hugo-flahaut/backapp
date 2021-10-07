@@ -14,10 +14,31 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+        jwt:
+            lexik_jwt: ~
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        login:
+            pattern: ^/api/login$
+            stateless: true
+            login_throttling : 
+                max_attempts: 5
+            provider: app_user_provider
+            json_login:
+                check_path: /api/login
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern: ^/api
+            stateless: true
+            provider: jwt
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
         main:
             lazy: true
             provider: app_user_provider
@@ -35,4 +56,5 @@ security:
         - { path: ^/api/options, roles: ROLE_ADMIN , methods: [GET,POST,PUT, PATCH, DELETE] }
         - { path: ^/api/rooms, roles: ROLE_ADMIN , methods: [GET,POST,PUT, PATCH, DELETE] }
         - { path: ^/api/bookings, roles: IS_AUTHENTICATED_FULLY , methods: [GET, POST, PUT, PATCH, DELETE] }
+
 

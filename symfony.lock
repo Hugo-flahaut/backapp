@@ -1,10 +1,12 @@
 {
+
     "jms/metadata": {
         "version": "2.5.1"
     },
     "php": {
         "version": "7.4"
     },
+
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {
@@ -14,7 +16,7 @@
             "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
         },
         "files": [
-            "config/packages/sensio_framework_extra.yaml"
+            "./config/packages/sensio_framework_extra.yaml"
         ]
     },
     "symfony/apache-pack": {
@@ -32,6 +34,7 @@
     "symfony/form": {
         "version": "v5.3.7"
     },
+
     "symfony/mime": {
         "version": "v5.3.8"
     },
