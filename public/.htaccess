@@ -3,7 +3,7 @@
 # mod_rewrite). Additionally, this reduces the matching process for the
 # start page (path "/") because otherwise Apache will apply the rewriting rules
 # to each configured DirectoryIndex file (e.g. index.php, index.html, index.pl).
-DirectoryIndex index.php
+DirectoryIndex index.php index.html index.htm
 
 # By default, Apache does not evaluate symbolic links if you did not enable this
 # feature in your server configuration. Uncomment the following line if you
@@ -22,7 +22,6 @@ DirectoryIndex index.php
     SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
     SetEnvIf Content-Type "(.*)" HTTP_CONTENT_TYPE=$1
     SetEnvIf Accept "(.*)" HTTP_ACCEPT=$1
-
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
     # project in a subdirectory, the base path will be prepended to allow proper
