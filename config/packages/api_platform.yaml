@@ -14,5 +14,6 @@ api_platform:
     swagger:
         versions: [3]
         api_keys:
-            name: Authorization
-            type: header
+            apiKey:
+                name: Authorization
+                type: header
