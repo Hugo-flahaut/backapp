@@ -23,7 +23,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  *      denormalizationContext={"groups"={"user:write"}}
  * )
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface, JWTUserInterface
+class User implements UserInterface,
+                        PasswordAuthenticatedUserInterface,
+                        JWTUserInterface
 {
     /**
      * @ORM\Id
@@ -99,7 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, JWTUser
 
     /**
      * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="user")
-     */
+    */
     private $bookings;
 
     public function __construct()

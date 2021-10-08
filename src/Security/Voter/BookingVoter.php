@@ -2,12 +2,18 @@
 
 namespace App\Security\Voter;
 
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class BookingVoter extends Voter
 {
+    private $userRepository;
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository=$userRepository;
+    }
     protected function supports(string $attribute, $subject): bool
     {
         // replace with your own logic
@@ -18,7 +24,8 @@ class BookingVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $booking, TokenInterface $token): bool
     {
-        $user = $token->getUser();
+        $userid = $token->getUser()->getUserIdentifier();
+        $user = $this->userRepository->find($userid);
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;

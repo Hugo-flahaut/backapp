@@ -46,9 +46,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                                              
  *                                           },
  *                                           "type" = {
- *                                              "type" = "string",
- *                                              
- *                                              
+ *                                              "type" = "string",    
  *                                           },
  *                                            "price" = {
  *                                              "type" = "integer",

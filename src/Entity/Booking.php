@@ -15,19 +15,22 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
- *  normalizationContext={"groups"={"booking:read"}},
- *  denormalizationContext={"groups"={"booking:write"}},
- *  attributes={
- *   "order"={"createdAt":"DESC"}
- *  },
+ *      iri="bookings",
+ *      normalizationContext={"groups"={"booking:read"}},
+ *      denormalizationContext={"groups"={"booking:write"}},
+ *      attributes={
+ *          "order"={"createdAt":"DESC"}
+ *      },
+ * collectionOperations={
+ * "get"= {"security"="is_granted('ROLE_ADMIN')","security_message"="Sorry,you are not the admin. "},
+ * "post"
+ * },
  * itemOperations={
- *  "get" = { "security" = "is_granted('show', object)" ,"security_message"="Sorry,you are not the adding of this booking. "},
- *  "delete" = { "security" = "is_granted('delete', object)","security_message"="Sorry,you are not the adding of this booking. "},
- *  "put" = { "security" = "is_granted('edit', object)",
- *             "security_message"="Sorry,you are not the adding of this booking so you can not editing",
- *             "denormalization_context"={"groups"={"update:booking"}}
+ *  "get" = { "security" = "is_granted('show', object) or is_granted('ROLE_ADMIN')" ,"security_message"="Sorry,you are not the adding of this booking. "},
+ *  "delete" = { "security" = "is_granted('delete', object) or is_granted('ROLE_ADMIN')","security_message"="Sorry,you are not the adding of this booking. "},
+ *  "put" = { "security" = "is_granted('edit', object) or is_granted('ROLE_ADMIN')",
+ *             "security_message"="Sorry,you are not the adding of this booking so you can not editing"}
  *  }
-*  }
  * )
  * @ApiFilter(SearchFilter::class,properties={"user":"exact"})
  * @ORM\Entity(repositoryClass=BookingRepository::class) 
@@ -79,10 +82,9 @@ class Booking
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="bookings")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"booking:read","booking:write"})
-     * @Assert\NotBlank(message ="ce champs  est obligatoire") 
+     * @Groups({"booking:read"})
      */
-    private $user;
+    private User $user;
 
     /**
      * @ORM\ManyToMany(targetEntity=Room::class, inversedBy="bookings")
@@ -161,11 +163,13 @@ class Booking
     {
         return $this->createdAt;
     }
+    /**
+     *  @ORM\PrePersist
+     */
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
-
+        $this->createdAt = new \DateTime();
         return $this;
     }
 

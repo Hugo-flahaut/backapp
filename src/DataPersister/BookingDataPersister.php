@@ -40,20 +40,11 @@ class BookingDataPersister implements ContextAwareDataPersisterInterface
             $data->setCreatedAt(new \DateTime());
         //passed status at false
             $data->setStatus(false);
-        //get the user
-      //  $user = $this->security->getUser() ;
-        $user = $this->userRepository->find(1);
-        //$data->setUser($user);
-        //$rooms = $this->roomRepository->findAll();
-        /* foreach($rooms as $room){ */
-        /*     $data->addRoom($room); */
-        /* } */
-
-        //$options = $this->optionRepository->findAll();
-        /* foreach($options as $option){ */
-        /*     $data->addOption($option); */
-        /* } */
+        //get the userid and convert it to integer
+        $userid = intval( $this->security->getUser()->getUserIdentifier());
+        $user = $this->userRepository->find($userid);
         //affect user at booking
+        $data->setUser($user);
         $this->em->persist($data);
         $this->em->flush();
 
