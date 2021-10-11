@@ -90,7 +90,6 @@ class Booking
      * @ORM\ManyToMany(targetEntity=Room::class, inversedBy="bookings")
      * @Groups({"booking:read", "booking:write"})
      * @Assert\NotBlank(message ="ce champs est obligatoire")
-     * 
      */
     private $rooms;
 

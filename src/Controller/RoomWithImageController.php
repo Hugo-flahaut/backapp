@@ -22,8 +22,8 @@ final class RoomWithImageController extends AbstractController
 {
     public function __invoke(Request $request): Room
     {
-         // Récupère email et mdp dans un user
-       // $room = $serializer->deserialize($request->getContent(), Room::class, 'json');
+    
+     //get the file
         $uploadedFile = $request->files->get('imageFile');     
         $room= new Room();
       //  $room =$request->attributes->get('data');
