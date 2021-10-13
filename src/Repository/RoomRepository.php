@@ -38,7 +38,7 @@ class RoomRepository extends ServiceEntityRepository
     {
         $qb = $this
         ->createQueryBuilder('r')
-        ->select('r.id,r.price,r.type')
+        ->select('r.id,r.price,r.type,r.number')
         ->groupBy('r.id')
         ->leftJoin('r.bookings', 'br')
         ->where('r.type = :val2')
