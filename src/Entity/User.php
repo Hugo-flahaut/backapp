@@ -67,10 +67,6 @@ class User implements UserInterface,
      * @ORM\Column(type="string", length=255)
      * @Groups({"user:read", "user:write"})
      * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 6,
-     *      minMessage = "Your first name must be at least {{ limit }} characters long",
-     * )
      * 
      */
     private $firstName;
@@ -79,10 +75,6 @@ class User implements UserInterface,
      * @ORM\Column(type="string", length=255)
      * @Groups({"user:read", "user:write"})
      * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 6,
-     *      minMessage = "Your last name must be at least {{ limit }} characters long",
-     * )
      */
     private $lastName;
 
