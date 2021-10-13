@@ -63,7 +63,6 @@ class Booking
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"booking:read"})
      */
     private $status;
 
