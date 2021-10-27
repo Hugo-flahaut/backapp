@@ -18,8 +18,8 @@ class RoomController extends AbstractController
     public function index(RoomRepository $roomRepository ,$datestart,$dateend,$type): Response
 
     {
-        $date1 = $datestart;
-        $date2 = $dateend;
+        $date1 = new \DateTime($datestart);
+        $date2 = new \DateTime($dateend);
         $typer = $type;
         $rooms = $roomRepository->findNotBookingRoomsId( $date1, $date2,$typer);
         $roomsjson =json_encode( $rooms);
