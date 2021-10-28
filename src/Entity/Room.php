@@ -156,7 +156,7 @@ class Room
 
     /**
      * @Vich\UploadableField(mapping="room", fileNameProperty="image")
-     * @Groups({"room:write"})
+     * @Groups({"room:read","room:write"})
      * @var File |null
      */
     private $imageFile;
