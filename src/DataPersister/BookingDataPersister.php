@@ -38,8 +38,6 @@ class BookingDataPersister implements ContextAwareDataPersisterInterface
         
         //add date and time of registration
             $data->setCreatedAt(new \DateTime());
-        //passed status at false
-            $data->setStatus(false);
         //get the userid and convert it to integer
         $userid = intval( $this->security->getUser()->getUserIdentifier());
         $user = $this->userRepository->find($userid);

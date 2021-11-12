@@ -88,7 +88,7 @@ class User implements UserInterface,
      * @Groups({"user:read", "user:write"})
      * @Assert\NotBlank
      * @Assert\Length(
-     *      min = 10,
+     *      min = 9,
      *      max = 14,
      *      minMessage = "Your phone must be at least {{ limit }} characters long",
      *      maxMessage = "Your phone cannot be longer than {{ limit }} characters"
