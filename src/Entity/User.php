@@ -20,7 +20,13 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ApiResource(
  *      normalizationContext={"groups"={"user:read"}},
- *      denormalizationContext={"groups"={"user:write"}}
+ *      denormalizationContext={"groups"={"user:write"}},
+ *      collectionOperations={
+ *          "post"={
+ *              "validation_groups"={"Default", "create"}
+ *          },
+ *         "get"
+ *     },
  * )
  */
 class User implements UserInterface,
@@ -54,8 +60,7 @@ class User implements UserInterface,
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups("user:write")
-     * @Assert\NotBlank
+     * @Groups("user:read")
      * @Assert\Length(
      *      min = 6,
      *      minMessage = "Your password must be at least {{ limit }} characters long",
@@ -83,13 +88,27 @@ class User implements UserInterface,
      * @Groups({"user:read", "user:write"})
      * @Assert\NotBlank
      * @Assert\Length(
-     *      min = 10,
+     *      min = 9,
      *      max = 14,
      *      minMessage = "Your phone must be at least {{ limit }} characters long",
      *      maxMessage = "Your phone cannot be longer than {{ limit }} characters"
      * )
      */
     private $phone;
+    /**
+     * @Groups("user:write")
+     *  @Assert\NotBlank(groups={"create"})
+     */
+    private $plainPassword;
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
 
     /**
      * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="user")
@@ -165,7 +184,7 @@ class User implements UserInterface,
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): string 
     {
         return $this->password;
     }

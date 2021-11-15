@@ -22,7 +22,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *          "order"={"createdAt":"DESC"}
  *      },
  * collectionOperations={
- * "get"= {"security"="is_granted('ROLE_ADMIN')","security_message"="Sorry,you are not the admin. "},
+ * "get",
  * "post"
  * },
  * itemOperations={
@@ -61,10 +61,6 @@ class Booking
      */
     private $endDate;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $status;
 
     /**
      * @ORM\Column(type="float")
@@ -79,7 +75,7 @@ class Booking
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="bookings")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="bookings" )
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"booking:read"})
      */
@@ -133,17 +129,6 @@ class Booking
         return $this;
     }
 
-    public function getStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(bool $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
 
     public function getTotalPrice(): ?float
     {

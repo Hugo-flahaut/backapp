@@ -36,18 +36,35 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
      */
     public function persist($data, array $context = [])
     {
-        $data->setPassword(
-            $this->_passwordHasher->hashPassword(
-                $data,
-                $data->getPassword()
-            )
-        );
-
-        $data->eraseCredentials();
-    
+       // dump($data->getPassword());
+        //dump($data->getPassword());
+        /* if ( */
+        /*     $data instanceof User && ( */
+        /*         ($context['collection_operation_name'] ?? null) === 'post' || */
+        /*         ($context['graphql_operation_name'] ?? null) === 'create' */
+        /*     ) */
+        /* ) { */
+        if($data->getPlainPassword()){
+            $data->setPassword(
+                $this->_passwordHasher->hashPassword(
+                    $data,
+                
+                    $data->getPlainPassword()
+                )
+            );
+                    
+            $data->eraseCredentials();
+            //dd($data);
+        }
         $this->_entityManager->persist($data);
         $this->_entityManager->flush();
+       // dd($data->getPassword());
+    
+    //}
+    
+    
     }
+
 
     /**
      * {@inheritdoc}

@@ -53,9 +53,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/users, roles: ROLE_ADMIN , methods: [GET, PUT, PATCH, DELETE] }
-        - { path: ^/api/current/user, roles: IS_AUTHENTICATED_FULLY }
-        # - { path: ^/api/options, roles: ROLE_ADMIN , methods: [GET,POST,PUT, PATCH, DELETE] }
-        # - { path: ^/api/rooms, roles: ROLE_ADMIN , methods: [GET,POST,PUT, PATCH, DELETE] }
+        - { path: ^/api/options, roles: ROLE_ADMIN , methods: [POST,PUT, PATCH, DELETE] }
+        - { path: ^/api/rooms, roles: ROLE_ADMIN , methods: [POST,PUT, PATCH, DELETE] }
         - { path: ^/api/bookings, roles: IS_AUTHENTICATED_FULLY , methods: [GET, POST, PUT, PATCH, DELETE] }
 
 
