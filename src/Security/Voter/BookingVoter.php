@@ -30,7 +30,6 @@ class BookingVoter extends Voter
         if (!$user instanceof UserInterface) {
             return false;
         }
-
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case 'show':
