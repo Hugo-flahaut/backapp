@@ -27,7 +27,7 @@ class OrderController extends AbstractController
                 "amount" => $amount,
                 "currency" => "EUR",
                 "description" => "app hotel!",
-                "source" => $token,
+                "payment_method" => $token,
                 "confirm"=>true,
                 
             ));
@@ -41,8 +41,8 @@ class OrderController extends AbstractController
             "Content-Type" => "application/json"
         ]);
         }
+        }
     }
-}
 }
     
     
