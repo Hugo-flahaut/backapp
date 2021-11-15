@@ -17,7 +17,6 @@ class CurrentUserController extends AbstractController
      * @Route("/api/current/user" , methods={"GET"})
      */
     public function index(Security $security,UserRepository $userRepository ): Response
-
     {
         $this->security= $security;
         $this->userRepositoty= $userRepository;

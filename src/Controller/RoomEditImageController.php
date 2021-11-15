@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-
-
 use App\Entity\Room;
 use Symfony\Component\HttpFoundation\Request;
 use ApiPlatform\Core\Exception\RuntimeException;

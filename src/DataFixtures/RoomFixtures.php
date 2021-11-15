@@ -45,6 +45,7 @@ class RoomFixtures extends Fixture
             $room->setNumber($rooms[$i]['number']);
             $room->setType($rooms[$i]['type']);
             $room->setPrice($rooms[$i]['price']);
+            $room->setCreatedAt(new \DateTime("now", new \DateTimeZone('Europe/Paris')));
 
             $manager->persist($room);  
         }

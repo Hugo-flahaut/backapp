@@ -35,12 +35,12 @@ class OptionFixtures extends Fixture
         ];
 
         for($i = 0; $i < count($options); ++$i){
-            $room = new Option();
+            $option = new Option();
             
-            $room->setName($options[$i]['name']);
-            $room->setPrice($options[$i]['price']);
+            $option->setName($options[$i]['name']);
+            $option->setPrice($options[$i]['price']);
 
-            $manager->persist($room);  
+            $manager->persist($option);  
         }
         $manager->flush();
     }
