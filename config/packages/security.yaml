@@ -56,5 +56,7 @@ security:
         - { path: ^/api/options, roles: ROLE_ADMIN , methods: [POST,PUT, PATCH, DELETE] }
         - { path: ^/api/rooms, roles: ROLE_ADMIN , methods: [POST,PUT, PATCH, DELETE] }
         - { path: ^/api/bookings, roles: IS_AUTHENTICATED_FULLY , methods: [GET, POST, PUT, PATCH, DELETE] }
+        
+        
 
 
