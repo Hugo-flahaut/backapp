@@ -2,16 +2,12 @@
 
 namespace App\Controller;
 
-
-
 use App\Entity\Room;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-
-
 
 #{AsController}
 /**
